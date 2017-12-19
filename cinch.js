@@ -51,27 +51,37 @@
 
     // Public
 
-    function theValidator(input) {
-        if (input.type == "email" && !validateEmail(input.value)) {
-            ops.errorFunction(input)
-        } else if (input.type == "tel" && !validatePhone(input.value)) {
-            ops.errorFunction(input)
-        } else if (input.classList.contains('validateNumber') && !validateNumber(input.value)) {
-            ops.errorFunction(input)
-        } else if (input.classList.contains('validateLetter') && !validateLetter(input.value)) {
-            ops.errorFunction(input)
-        } else if (input.value == "") {
-            ops.errorFunction(input)
+    function theValidator(el) {
+        if (el.type == "email" && !validateEmail(el.value)) {
+            preError(el)
+        } else if (el.type == "tel" && !validatePhone(el.value)) {
+            preError(el)
+        } else if (el.classList.contains('validateNumber') && !validateNumber(el.value)) {
+            preError(el)
+        } else if (el.classList.contains('validateLetter') && !validateLetter(el.value)) {
+            preError(el)
+        } else if (el.value == "") {
+            preError(el)
         } else {
-            Valid(input)
+            preValid(el)
         }
     }
 
-    function Error(input) {
+
+    function preError(el){
+        el.setAttribute("aria-invalid", "true")
+        ops.errorFunction(el)
+    }
+    function preValid(el){
+        el.setAttribute("aria-invalid", "false")
+        ops.validFunction(el)
+    }
+
+    function Error(el) {
         input.style.border = "1px solid red"
     }
 
-    function Valid(input) {
+    function Valid(el) {
         input.style.border = "1px solid green"
     }
 
