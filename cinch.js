@@ -30,7 +30,7 @@
 
         if (ops.debug == true) {
             console.groupCollapsed('%cCINCH %c(Expand for more details)', "background: #27ae60; font-size: 12px;padding:3px;line-height:36px;color:#fff;", "background: #000; font-size: 12px;padding:3px;line-height:36px;color:#fff;")
-            console.log('Cinch version 3.0.0 Running Detalis')
+            console.log('Version 3.0.0')
             console.log('Developed by thedigitalhawk')
             console.log('Documentation/Change Log: https://github.com/thedigitalhawk/Cinch')
             console.groupCollapsed('Form Found')
