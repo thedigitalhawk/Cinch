@@ -6,7 +6,8 @@
             trigger: '.next',
             form: "",
             errorFunction: Error,
-            validFunction: Valid
+            validFunction: Valid,
+            debug: true
         }
 
         // Extending defaults with passed options
@@ -27,18 +28,23 @@
                 element.tagName == 'TEXTAREA'
         })
 
-        console.groupCollapsed('%cCINCH %c(Expand for more details)', "background: #27ae60; font-size: 12px;padding:3px;line-height:36px;color:#fff;","background: #000; font-size: 12px;padding:3px;line-height:36px;color:#fff;")
-        console.log('Cinch version 3.0.0 Running Detalis')
-        console.groupCollapsed('Form Found')
-        console.log(ops.form)
-        console.groupEnd();
-        console.groupCollapsed('Elements Found')
-        console.log(theInputs)
-        console.groupEnd();
-        console.groupCollapsed('Options Loaded')
-        console.log(ops)
-        console.groupEnd();
-        console.groupEnd();
+        if (ops.debug == true) {
+            console.groupCollapsed('%cCINCH %c(Expand for more details)', "background: #27ae60; font-size: 12px;padding:3px;line-height:36px;color:#fff;", "background: #000; font-size: 12px;padding:3px;line-height:36px;color:#fff;")
+            console.log('Cinch version 3.0.0 Running Detalis')
+            console.log('Developed by thedigitalhawk')
+            console.log('Documentation/Change Log: https://github.com/thedigitalhawk/Cinch')
+            console.groupCollapsed('Form Found')
+            console.log(ops.form)
+            console.groupEnd();
+            console.groupCollapsed('Elements Found')
+            console.log(theInputs)
+            console.groupEnd();
+            console.groupCollapsed('Options Loaded')
+            console.log(ops)
+            console.groupEnd();
+            console.groupEnd();
+        }
+
         for (var i = 0; i < theInputs.length; i++) {
             theInputs[i].addEventListener('blur', function () {
                 theValidator(this)
