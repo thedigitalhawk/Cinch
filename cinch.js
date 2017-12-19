@@ -1,9 +1,7 @@
 (function () {
-
     // Define our constructor 
     this.Cinch = function () {
 
-        // Define option defaults 
         var defaults = {
             trigger: '.next',
             form: "",
@@ -11,16 +9,16 @@
             validFunction: Valid
         }
 
-        // Create options by extending defaults with the passed in arugments
+        // Extending defaults with passed options
         if (arguments[0] && typeof arguments[0] === "object") {
             this.options = extendDefaults(defaults, arguments[0]);
         }
 
         ops = this.options
         theForm = ops.form
-        //set this up as an array so we can use filter
+        //Set this up as an array so we can use filter
         theInputs = [].slice.call(theForm.children);
-        //filter out hidden elements
+        //Filter out hidden elements
         theInputs = theInputs.filter(function (element) {
             return element.offsetWidth > 0 &&
                 element.offsetHeight > 0 &&
@@ -29,6 +27,18 @@
                 element.tagName == 'TEXTAREA'
         })
 
+        console.groupCollapsed('%cCINCH %c(Expand for more details)', "background: #27ae60; font-size: 12px;padding:3px;line-height:36px;color:#fff;","background: #000; font-size: 12px;padding:3px;line-height:36px;color:#fff;")
+        console.log('Cinch version 3.0.0 Running Detalis')
+        console.groupCollapsed('Form Found')
+        console.log(ops.form)
+        console.groupEnd();
+        console.groupCollapsed('Elements Found')
+        console.log(theInputs)
+        console.groupEnd();
+        console.groupCollapsed('Options Loaded')
+        console.log(ops)
+        console.groupEnd();
+        console.groupEnd();
         for (var i = 0; i < theInputs.length; i++) {
             theInputs[i].addEventListener('blur', function () {
                 theValidator(this)
@@ -41,15 +51,11 @@
         });
 
     }
-
     Cinch.prototype.validate = function (defaults) {
-        
-                for (var i = 0; i < theInputs.length; i++) {
-                    theValidator(theInputs[i])
-                }
-            }
-
-    // Public
+        for (var i = 0; i < theInputs.length; i++) {
+            theValidator(theInputs[i])
+        }
+    }
 
     function theValidator(el) {
         if (el.type == "email" && !validateEmail(el.value)) {
@@ -67,22 +73,22 @@
         }
     }
 
-
-    function preError(el){
+    function preError(el) {
         el.setAttribute("aria-invalid", "true")
         ops.errorFunction(el)
     }
-    function preValid(el){
+
+    function preValid(el) {
         el.setAttribute("aria-invalid", "false")
         ops.validFunction(el)
     }
 
     function Error(el) {
-        input.style.border = "1px solid red"
+        el.style.border = "1px solid red"
     }
 
     function Valid(el) {
-        input.style.border = "1px solid green"
+        el.style.border = "1px solid green"
     }
 
     //Validators
@@ -115,5 +121,4 @@
         }
         return source;
     }
-
 }());
