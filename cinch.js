@@ -15,18 +15,26 @@
             this.options = extendDefaults(defaults, arguments[0]);
         }
 
+
         ops = this.options
         theForm = ops.form
-        //Set this up as an array so we can use filter
-        theInputs = [].slice.call(theForm.children);
-        //Filter out hidden elements
-        theInputs = theInputs.filter(function (element) {
-            return element.offsetWidth > 0 &&
-                element.offsetHeight > 0 &&
-                element.tagName == 'INPUT' ||
-                element.tagName == 'SELECT' ||
-                element.tagName == 'TEXTAREA'
-        })
+
+        this.reinit = function() {
+            //Set this up as an array so we can use filter
+            theInputs = [].slice.call(theForm.children);
+            //Filter out hidden elements
+            theInputs = theInputs.filter(function (element) {
+                return element.offsetWidth > 0 &&
+                    element.offsetHeight > 0 &&
+                    element.tagName == 'INPUT' ||
+                    element.tagName == 'SELECT' ||
+                    element.tagName == 'TEXTAREA'
+            })
+            return theInputs.length
+        }
+
+
+        this.reinit()
 
         if (ops.debug == true) {
             console.groupCollapsed('%cCINCH %c(Expand for more details)', "background: #27ae60; font-size: 12px;padding:3px;line-height:36px;color:#fff;", "background: #000; font-size: 12px;padding:3px;line-height:36px;color:#fff;")
@@ -78,6 +86,8 @@
             preValid(el)
         }
     }
+
+ 
 
     function preError(el) {
         el.setAttribute("aria-invalid", "true")
