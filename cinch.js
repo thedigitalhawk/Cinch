@@ -15,11 +15,10 @@
             this.options = extendDefaults(defaults, arguments[0]);
         }
 
-
         ops = this.options
         theForm = ops.form
 
-        this.reinit = function() {
+        this.reinit = function () {
             //Set this up as an array so we can use filter
             theInputs = [].slice.call(theForm.children);
             //Filter out hidden elements
@@ -30,34 +29,35 @@
                     element.tagName == 'SELECT' ||
                     element.tagName == 'TEXTAREA'
             })
-            return theInputs.length
+
+            if (ops.debug == true) {
+                console.groupCollapsed('%cCINCH %c(Expand for more details)', "background: #27ae60; font-size: 12px;padding:3px;line-height:36px;color:#fff;", "background: #000; font-size: 12px;padding:3px;line-height:36px;color:#fff;")
+                console.log('Version 3.0.0')
+                console.log('Developed by thedigitalhawk')
+                console.log('Documentation/Change Log: https://github.com/thedigitalhawk/Cinch')
+                console.groupCollapsed('Form Found')
+                console.log(ops.form)
+                console.groupEnd();
+                console.groupCollapsed('Elements Found')
+                console.log(theInputs)
+                console.groupEnd();
+                console.groupCollapsed('Options Loaded')
+                console.log(ops)
+                console.groupEnd();
+                console.groupEnd();
+            }
+
+            for (var i = 0; i < theInputs.length; i++) {
+                theInputs[i].removeEventListener('blur', function () {
+                    theValidator(this)
+                });
+                theInputs[i].addEventListener('blur', function () {
+                    theValidator(this)
+                });
+            }
+
         }
-
-
         this.reinit()
-
-        if (ops.debug == true) {
-            console.groupCollapsed('%cCINCH %c(Expand for more details)', "background: #27ae60; font-size: 12px;padding:3px;line-height:36px;color:#fff;", "background: #000; font-size: 12px;padding:3px;line-height:36px;color:#fff;")
-            console.log('Version 3.0.0')
-            console.log('Developed by thedigitalhawk')
-            console.log('Documentation/Change Log: https://github.com/thedigitalhawk/Cinch')
-            console.groupCollapsed('Form Found')
-            console.log(ops.form)
-            console.groupEnd();
-            console.groupCollapsed('Elements Found')
-            console.log(theInputs)
-            console.groupEnd();
-            console.groupCollapsed('Options Loaded')
-            console.log(ops)
-            console.groupEnd();
-            console.groupEnd();
-        }
-
-        for (var i = 0; i < theInputs.length; i++) {
-            theInputs[i].addEventListener('blur', function () {
-                theValidator(this)
-            });
-        }
 
         var triggerButton = document.querySelector(this.options.trigger);
         triggerButton.addEventListener('click', function () {
@@ -86,8 +86,6 @@
             preValid(el)
         }
     }
-
- 
 
     function preError(el) {
         el.setAttribute("aria-invalid", "true")
