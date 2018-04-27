@@ -1,3 +1,7 @@
+# CINCH.JS
+
+![File Size](https://img.shields.io/github/size/thedigitalhawk/Cinch/cinch.min.js.svg)
+
 # What is Cinch?
 Cinch is a tiny client-side validation script written in jQuery.
 
