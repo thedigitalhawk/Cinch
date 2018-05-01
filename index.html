@@ -35,16 +35,13 @@
             <option value="11">11</option>
             <option value="12">12</option>
         </select>
-        <button id="trigger" class="next" type="button">Validate</button>
+        <button type="submit">Validate</button>
     </form>
 
     <script>
         var error2 = function (input) {
             input.style.border = "1px solid red"
             console.log(input)
-            // console.warn('Cinch found an error in:')
-            // console.warn(input)
-            // console.log('')
         }
 
         Cinch = new Cinch({

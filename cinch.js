@@ -1,5 +1,4 @@
-(function () {
-    // Define our constructor 
+(function () { 
     this.Cinch = function () {
 
         var defaults = {
@@ -10,7 +9,6 @@
             debug: true
         }
 
-        // Extending defaults with passed options
         if (arguments[0] && typeof arguments[0] === "object") {
             this.options = extendDefaults(defaults, arguments[0]);
         }
@@ -20,8 +18,7 @@
 
         this.reinit = function () {
             //Set this up as an array so we can use filter
-            theInputs = [].slice.call(theForm.children);
-            //Filter out hidden elements
+            theInputs = [].slice.call(theForm.querySelectorAll('input,select,textarea'));
             theInputs = theInputs.filter(function (element) {
                 return element.offsetWidth > 0 &&
                     element.offsetHeight > 0 &&
@@ -60,9 +57,22 @@
         this.reinit()
 
         var triggerButton = document.querySelector(this.options.trigger);
-        triggerButton.addEventListener('click', function () {
-            Cinch.validate();
-        });
+        console.log(triggerButton)
+        if(triggerButton != null){
+            triggerButton.addEventListener('click', function () {
+                Cinch.validate();
+            });
+        }
+
+        var submitButton = document.querySelector('[type=submit]');
+        theForm.onsubmit=function()
+            { 
+                Cinch.validate();
+            return false;
+            }
+        // submitButton.addEventListener('click', function () {
+        //     return false;
+        // });
 
     }
     Cinch.prototype.validate = function (defaults) {
@@ -105,7 +115,6 @@
         el.style.border = "1px solid green"
     }
 
-    //Validators
     function validateEmail($e) {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test($e);
