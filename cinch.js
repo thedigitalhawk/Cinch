@@ -57,7 +57,6 @@
         this.reinit()
 
         var triggerButton = document.querySelector(this.options.trigger);
-        console.log(triggerButton)
         if(triggerButton != null){
             triggerButton.addEventListener('click', function () {
                 Cinch.validate();
