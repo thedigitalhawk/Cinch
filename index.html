@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cinch Example</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="cinch.js"></script>
+    <script src="js/cinch.js"></script>
 </head>
 
 <body>
@@ -25,6 +25,9 @@
         <label for="number">Number</label>
         <input type="text" name="number" class="validateNumber">
 
+        <label for="number">NO REQUIRED</label>
+        <input type="text" name="number" class="skipM">
+
         <label for="letter">Letter</label>
         <input type="text" name="letter" class="validateLetter">
         <input type="hidden">
@@ -35,13 +38,13 @@
             <option value="11">11</option>
             <option value="12">12</option>
         </select>
+        <input type="button" value="bacon">
         <button type="submit">Validate</button>
     </form>
 
     <script>
         var error2 = function (input) {
             input.style.border = "1px solid red"
-            console.log(input)
         }
 
         Cinch = new Cinch({

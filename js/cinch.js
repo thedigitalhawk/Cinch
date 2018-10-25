@@ -18,7 +18,7 @@
 
         this.reinit = function () {
             //Set this up as an array so we can use filter
-            theInputs = [].slice.call(theForm.querySelectorAll('input,select,textarea'));
+            theInputs = [].slice.call(theForm.querySelectorAll('*:not(.skipM):not([type=button]):not([type=submit])'));
             theInputs = theInputs.filter(function (element) {
                 return element.offsetWidth > 0 &&
                     element.offsetHeight > 0 &&
