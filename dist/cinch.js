@@ -8,6 +8,7 @@
             validFunction: Valid,
             debug: true
         }
+        errorCount=0;
 
         if (arguments[0] && typeof arguments[0] === "object") {
             this.options = extendDefaults(defaults, arguments[0]);
@@ -29,7 +30,7 @@
 
             if (ops.debug == true) {
                 console.groupCollapsed('%cCINCH %c(Expand for more details)', "background: #27ae60; font-size: 12px;padding:3px;line-height:36px;color:#fff;", "background: #000; font-size: 12px;padding:3px;line-height:36px;color:#fff;")
-                console.log('Version 3.0.0')
+                console.log('Version 3.0.1')
                 console.log('Developed by thedigitalhawk')
                 console.log('Documentation/Change Log: https://github.com/thedigitalhawk/Cinch')
                 console.groupCollapsed('Form Found')
@@ -67,7 +68,10 @@
         theForm.onsubmit=function()
             { 
                 Cinch.validate();
+          if(errorCount > 0){
             return false;
+          }
+             
             }
         // submitButton.addEventListener('click', function () {
         //     return false;
@@ -75,9 +79,11 @@
 
     }
     Cinch.prototype.validate = function (defaults) {
+        errorCount=0
         for (var i = 0; i < theInputs.length; i++) {
             theValidator(theInputs[i])
         }
+      
     }
 
     function theValidator(el) {
@@ -99,6 +105,7 @@
     function preError(el) {
         el.setAttribute("aria-invalid", "true")
         ops.errorFunction(el)
+        errorCount++;
     }
 
     function preValid(el) {
