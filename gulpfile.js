@@ -27,7 +27,7 @@ gulp.task('scripts', function() {
     return gulp.src('js/*.js')
         //.pipe(concat('all.js'))
         .pipe(gulp.dest('dist'))
-        //.pipe(rename('all.min.js'))
+        .pipe(rename('cinch.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('dist/js'));
 });
