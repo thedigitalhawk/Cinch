@@ -6,6 +6,7 @@
             form: "",
             errorFunction: Error,
             validFunction: Valid,
+            customValidation: null,
             debug: true
         }
         errorCount=0;
@@ -29,7 +30,7 @@
             })
 
             if (ops.debug == true) {
-                console.groupCollapsed('%cCINCH %c(Expand for more details)', "background: #27ae60; font-size: 12px;padding:3px;line-height:36px;color:#fff;", "background: #000; font-size: 12px;padding:3px;line-height:36px;color:#fff;")
+                console.groupCollapsed('%cCINCH DEV %c(Expand for more details)', "background: #27ae60; font-size: 12px;padding:3px;line-height:36px;color:#fff;", "background: #000; font-size: 12px;padding:3px;line-height:36px;color:#fff;")
                 console.log('Version 3.0.1')
                 console.log('Developed by thedigitalhawk')
                 console.log('Documentation/Change Log: https://github.com/thedigitalhawk/Cinch')
@@ -87,6 +88,7 @@
     }
 
     function theValidator(el) {
+        //console.warn('Now validating: '+el.name)
         if (el.type == "email" && !validateEmail(el.value)) {
             preError(el)
         } else if (el.type == "tel" && !validatePhone(el.value)) {
@@ -94,6 +96,10 @@
         } else if (el.classList.contains('validateNumber') && !validateNumber(el.value)) {
             preError(el)
         } else if (el.classList.contains('validateLetter') && !validateLetter(el.value)) {
+            preError(el)
+        } else if (el.type == "checkbox" && !validateCheckbox(el)) {
+            preError(el)
+        } else if(el.classList.contains('validateCustom') && !runCustomFn(window[el.dataset.validate],el.value)){
             preError(el)
         } else if (el.value == "") {
             preError(el)
@@ -134,6 +140,28 @@
     function validateNumber($n) {
         var re = /^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/;
         return re.test($n);
+    }
+
+    function validateCheckbox($c) {
+        var howManyChecked = 0;
+        var checkboxes = document.querySelectorAll('input[name='+$c.name+']')
+        
+        for (i = 0; i < checkboxes.length; i++) {
+            if(checkboxes[i].checked){
+                howManyChecked ++
+            }
+        }
+        if(howManyChecked > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function runCustomFn(fn,input){
+        if(typeof fn === 'function') {
+            return fn(input);
+        }
     }
 
     function validateLetter($l) {

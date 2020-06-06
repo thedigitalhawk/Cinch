@@ -33,23 +33,71 @@
         <input type="hidden">
         <input type="text" style="display:none;">
         <input type="text">
+        <label for="letter">Validation Custom 1 (this example should only allow numbers)</label>
+        <input type="text" name="custom1" class="validateCustom" data-validate="customValidation1">
+        <label for="letter">Validation Custom 2 (this example should only allow emails)</label>
+        <input type="text" name="custom1" class="validateCustom" data-validate="customValidation2">
         <select name="" id="">
             <option value="">Select</option>
             <option value="11">11</option>
             <option value="12">12</option>
         </select>
+        <br/>
+        <br/>
+        <label for="testBox1">Checkbox 1</label>
+        <br/>
+        <input type="checkbox" name="testBox1" id="mlu1" value="1"><label for="mlu1">Checkbox 1</label>
+        <input type="checkbox" name="testBox1" id="mlu2" value="2"><label for="mlu2">Checkbox 2</label>
+        <input type="checkbox" name="testBox1" id="mlu3" value="3"><label for="mlu3">Checkbox 3</label>
+        <input type="checkbox" name="testBox1" id="mlu4" value="4"><label for="mlu4">Checkbox 4</label>
+
+        <br/>
+        <br/>
+        <label for="testBox2">Checkbox 2</label>
+        <br/>
+        <input type="checkbox" name="testBox2" id="mlu5" value="1">
+        <input type="checkbox" name="testBox2" id="mlu6" value="2">
+        <input type="checkbox" name="testBox2" id="mlu7" value="3">
+        <input type="checkbox" name="testBox2" id="mlu8" value="4">
+
+        <br/>
+        <br/>
         <input type="button" value="bacon">
+        <br/>
+        <br/>
         <button type="submit">Validate</button>
     </form>
 
     <script>
+        //testing custom validation
+        function customValidation1(input){
+            var re = /^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/;
+            return re.test(input);
+        }
+
+        function customValidation2(input){
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(input);
+        }
+
+
         var error2 = function (input) {
-            input.style.border = "1px solid red"
+            if(input.id !== "" && document.querySelector('label[for='+input.id+']') !== null){
+                document.querySelector('label[for='+input.id+']').style.color = "red"
+            }
+            input.style.border = "1px solid red";
+        }
+        var valid2 = function (input) {
+            if(input.id !== "" && document.querySelector('label[for='+input.id+']') !== null){
+                document.querySelector('label[for='+input.id+']').style.color = "green"
+            }
+            input.style.border = "1px solid green";
         }
 
         Cinch = new Cinch({
             form: document.querySelector('#F04'),
-            errorFunction: error2
+            errorFunction: error2,
+            validFunction: valid2
         });
     </script>
 
