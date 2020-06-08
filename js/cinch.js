@@ -30,8 +30,8 @@
             })
 
             if (ops.debug == true) {
-                console.groupCollapsed('%cCINCH DEV %c(Expand for more details)', "background: #27ae60; font-size: 12px;padding:3px;line-height:36px;color:#fff;", "background: #000; font-size: 12px;padding:3px;line-height:36px;color:#fff;")
-                console.log('Version 3.0.1')
+                console.groupCollapsed('%cCINCH DEV %c(Expand for more details)', "background: #FF7416; font-size: 12px;padding:3px;line-height:36px;color:#fff;", "background: #000; font-size: 12px;padding:3px;line-height:36px;color:#fff;")
+                console.log('Version 3.0.3')
                 console.log('Developed by thedigitalhawk')
                 console.log('Documentation/Change Log: https://github.com/thedigitalhawk/Cinch')
                 console.groupCollapsed('Form Found')
@@ -88,7 +88,9 @@
     }
 
     function theValidator(el) {
-        //console.warn('Now validating: '+el.name)
+        if (ops.debug == true) {
+        console.warn('Now validating: '+el.name)
+        }
         if (el.type == "email" && !validateEmail(el.value)) {
             preError(el)
         } else if (el.type == "tel" && !validatePhone(el.value)) {
